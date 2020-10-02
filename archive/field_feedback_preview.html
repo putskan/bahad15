@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>טופס רפואי</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.ico') }}"/>
+        <!-- mobile compatibility -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- styles -->
+        <!-- bootstrap related - latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <!-- website-specific css & js -->
+        <link href="{{ url_for('static', filename='css/stylesheet.css') }}" rel="stylesheet" type="text/css" >
+        <!-- bootstrap related - jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-transition.js"></script>
+        <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-collapse.js"></script>
+        <!-- bootstrap related - Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <!-- bootstrap related - Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/129cd72893.js" crossorigin="anonymous"></script>
+    </head>
+
+
+    <body>
+        <header class="">
+            <div class="logo row justify-content-center align-items-center">
+                <div class="english">
+                    <img src="./static/img/logo.png" class="logo-img">
+                    <h3><span class="green-text">B</span>ahad 15</h3>
+                </div>
+            </div>
+            <!-- <nav class=""
+            </nav> -->
+            <hr>
+        </header>
+        
+        <div class="main-wrapper green-gradient-bg preview_wrapper">
+            <div class="medical-preview-content-wrapper" style="margin: auto">
+                <h3>שאלון רפואי</h3>
+                <ul style="">
+                    <li>להלן שאלון רפואי לחייל הנקלט ביחידה.</li>
+                    <li>מטרת השאלון היא שמירה על בריאותך.</li>    
+                    <li>על כן, הסתרת מידע רפואי עלולה לסכן את בריאותך!</li>
+                    <li>שאלון זה אינו מהווה חלופה לבדיקה רפואית.</li>
+                    <li>השאלון נכתב בלשון זכר מטעמי נוחות בלבד, אך מיועד לנשים וגברים כאחד.</li>                   
+                </ul>
+                <button type="button" class="medical-preview-button btn-style-1" onclick="location.href = '/medical';">התחל מענה</button>
+            </div>
+        </div>
+        <footer class="">
+        </footer>
+    </body>
+</html>

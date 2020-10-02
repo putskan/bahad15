@@ -1,0 +1,245 @@
+@font-face {
+	font-family: farsan;
+	src: url("../fonts/English/Farsan-Regular.ttf");
+}
+
+@font-face {
+	font-family: varela;
+	src: url("../fonts/Hebrew/VarelaRound-Regular.ttf");
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	direction: rtl;
+	font-family: varela, Arial;
+	/*color: #232b2b;*/
+}
+
+.english, .english * {
+	direction: ltr;
+	font-family: farsan, san-serif !important;
+}
+
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+/* remove input arrows in Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* remove input arrows in Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.logo {
+	/*width: 50%;*/
+	margin: 0 auto;
+}
+
+.logo-img {
+	height: 68px;
+	display: inline-block;
+	padding: 10px 7px 10px 0px;
+}
+
+.logo h3 {
+	display: inline-block;
+	margin: 0;
+	transform: translateY(3px);
+}
+
+.green-text {
+	color: rgb(11, 111, 60)
+}
+
+header hr {
+/*	border-top: 1.5px solid rgba(0,0,0,.73);
+*/	margin: 0;
+}
+
+.main-wrapper {
+	color: white;
+/*	height: 1500px;
+*/	overflow-y: hidden;
+}
+
+.medical-form-wrapper {
+	text-align: right;
+	padding: 30px 0px;
+}
+
+.green-gradient-bg {
+	background-image:  linear-gradient(to right, rgb(11, 115, 60), rgb(0, 60, 30))
+
+}
+
+.form-buttons {
+	padding: 10px 0px;
+	display: flex;
+	justify-content: center;
+}
+
+.btn-style-1 {
+	border:solid 2px #fff;
+	background: transparent;
+    color: #fff !important;
+	cursor: pointer;
+    border-radius: 0px;
+    text-decoration: none;
+    padding: 12px 18px;
+    font-size: 15px;
+    line-height: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    -webkit-transition: all .3s ease-in-out;
+       -moz-transition: all .3s ease-in-out;
+        -ms-transition: all .3s ease-in-out;
+         -o-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+}
+
+.btn-style-1:hover {
+	border:solid 2px #fff;
+    background: #fff;
+    color: #1f1f1f !important;
+}
+
+
+.tab {
+  display: none;
+}
+
+.tab h3{
+	padding-bottom: 5px;
+}
+
+.form-seperator {
+	padding-top: 16px;
+}
+
+.emphasize-text-1 {
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+.invalid {
+	background-color: #ffdddd;
+}
+
+.affidavit-list {
+	padding-right: 10px;
+}
+li {
+	padding-top: 10px;
+}
+
+.kamanim-img {
+	display: none;
+}
+
+
+.side-note {
+	font-style: italic;
+    font-size: 80%;
+}
+
+.dab-img {
+	margin: 0 auto;
+	margin-top: 40px;
+	width: 70%;
+	padding-top: 65%; /* for width-height ratio */
+	background-image: url("../img/dab.jpg");
+  	background-repeat: no-repeat;
+  	background-size: cover;
+}
+
+/* medical_preview page - begin */
+.preview_wrapper {
+	height: 90%;
+}
+
+.medical-preview-button {
+	display: block;
+	margin: 0 auto;
+}
+
+.medical-preview-content-wrapper {
+	padding-top: 30px;
+	width: 80%;
+}
+
+.medical-preview-content-wrapper ul {
+	text-align: right;
+	padding: 20px 0px;
+}
+
+.medical-preview-content-wrapper h3 {
+	text-align: center;
+}
+/* medical_preview page - end */
+
+
+@media only screen and (min-width: 992px) {
+	.logo-img {
+		height: 100px;
+	}
+
+	.logo h3 {
+		font-size: 200%;
+		transform: translateY(7px);
+	}
+
+	.logo {
+		padding: 18px 0px;
+	}
+
+	.medical-form-wrapper {
+		padding-right: 70px;
+	}
+
+	body {
+		font-size: 130%
+	}
+	button {
+		font-size: 105% !important;
+	}
+	.dab-img {
+		width: 50%;
+		padding-top: 40%;
+
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.kamanim-img {
+		display: block;
+		background-image: url("../img/kaman.jpeg");
+		background-repeat: no-repeat;
+		background-size: auto 2150px;
+		overflow: hidden;
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+	.medical-preview-content-wrapper ul {
+		width: 50%;
+		margin: 0 auto;
+		padding-bottom: 40px;
+	}
+}
+
+
+/*--breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;*/

@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>טופס רפואי</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.ico') }}"/>
+        <!-- mobile compatibility -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- styles -->
+        <!-- bootstrap related - latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <!-- website-specific css & js -->
+        <script src="{{ url_for('static', filename='js/script.js') }}" crossorigin="anonymous"></script>
+        <link href="{{ url_for('static', filename='css/stylesheet.css') }}" rel="stylesheet" type="text/css" >
+        <!-- bootstrap related - jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-transition.js"></script>
+        <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-collapse.js"></script>
+        <!-- bootstrap related - Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <!-- bootstrap related - Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/129cd72893.js" crossorigin="anonymous"></script>
+    </head>
+
+
+    <body>
+        <header class="">
+            <div class="logo row justify-content-center align-items-center">
+                <div class="english">
+                    <img src="./static/img/logo.png" class="logo-img">
+                    <h3><span class="green-text">B</span>ahad 15</h3>
+                </div>
+            </div>
+            <!-- <nav class=""
+            </nav> -->
+            <hr>
+        </header>
+        
+        <div id="medical-page-main-wrapper" class="main-wrapper green-gradient-bg">
+            <div id="medical-page-main-wrapper-2" class="row justify-content-center" style="margin: auto">
+                <div class="medical-form-wrapper col-11 col-sm-7 col-xl-4">
+                    <form id="medical-form" action="/send_form" method="post">
+                        <div class="tab">
+                            <h3>מידע כללי</h3>
+                            <label for="private_number">מספר אישי</label><br>
+                            <input type="number" onkeypress="return event.charCode >= 48" id="private_number" name="private_number" required>
+                            <div class="form-seperator"></div>
+                            <label for="citizen_id">תעודת זהות</label><br>
+                            <input type="number" onkeypress="return event.charCode >= 48" id="citizen_id" name="citizen_id" required>
+                            <div class="form-seperator"></div>
+                            <label for="full-name">שם מלא</label><br>
+                            <input type="text" id="full-name" name="full_name" required>
+                            <div class="form-seperator"></div>
+                            <label for="medical_profile">פרופיל רפואי</label><br>
+                            <input type="number" onkeypress="return event.charCode >= 48" id="medical_profile" name="medical_profile" required>
+                            <div class="form-seperator"></div>
+
+
+                            <label for="height">גובה (ס"מ)</label><br>
+                            <input type="number" onkeypress="return event.charCode >= 48" id="height" name="height" required>
+                            <div class="form-seperator"></div>
+
+
+                            <label for="weight">משקל (ק"ג)</label><br>
+                            <input type="number" onkeypress="return event.charCode >= 48" id="weight" name="weight" required>
+                            <div class="form-seperator"></div>
+
+                            <!-- Yes / No Radio Button -->
+                            <div>רגישות לתרופות</div>
+                            <input type="radio" id="drug-sensitivity-yes" name="drug_sensitivity" value="TRUE" onclick="disableEnableInput(['drug_sensitivity_details'], 'enable')">
+                            <label for="drug-sensitivity-yes">כן</label><br>
+                            <input type="radio" id="drug-sensitivity-no" name="drug_sensitivity" value="FALSE" checked="checked" onclick="disableEnableInput(['drug_sensitivity_details'], 'disable')">
+                            <label for="drug-sensitivity-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="drug_sensitivity_details">אם כן, פרט לאילו תרופות ומה התגובה</label><br>
+                            <input type="text" id="drug_sensitivity_details" name="drug_sensitivity_details" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+
+                            <div>עישון</div>
+                            <input type="radio" id="smoking-yes" name="smoking" value="TRUE">
+                            <label for="smoking-yes">כן</label><br>
+                            <input type="radio" id="smoking-no" name="smoking" value="FALSE" checked="checked">
+                            <label for="smoking-no">לא</label><br>
+                            <div class="form-seperator"></div>
+                        </div>
+
+                        <div class="tab">
+                            <h3>ניתוחים</h3>
+                            <!-- conditional start -->
+                            <div>האם עברת ניתוח כלשהו</div>
+                            <input type="radio" id="surgery-yes" name="surgery" value="TRUE" onclick="disableEnableInput(['surgery_details'], 'enable')">
+                            <label for="surgery-yes">כן</label><br>
+                            <input type="radio" id="surgery-no" name="surgery" value="FALSE" checked="checked" onclick="disableEnableInput(['surgery_details'], 'disable')">
+                            <label for="surgery-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="surgery_details">ציין את סוגי הניתוחים ובאילו שנים התרחשו</label><br>
+                            <textarea name="surgery_details" id="surgery_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+                            <!-- conditional end -->
+
+
+
+                            <div>האם עברת בדיקה/טיפול פולשני?*</div>
+                            <input type="radio" id="intrusive-treatment-yes" name="intrusive_treatment" value="TRUE" onclick="disableEnableInput(['intrusive_treatment_details'], 'enable')">
+                            <label for="intrusive-treatment-yes">כן</label><br>
+                            <input type="radio" id="intrusive-treatment-no" name="intrusive_treatment" value="FALSE" checked="checked" onclick="disableEnableInput(['intrusive_treatment_details'], 'disable')">
+                            <label for="intrusive-treatment-no">לא</label><br>
+                            <p class="side-note">*פעולה בה מכניסים מכשיר אל תוך רקמות הגוף</p>
+                            <div class="form-seperator"></div>
+                            
+                            <label for="intrusive_treatment_details">ציין את סוגי הטיפולים / הבדיקות ובאילו שנים התרחשו</label><br>
+                            <textarea name="intrusive_treatment_details" id="intrusive_treatment_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם עברת ניתוח עיניים (לייזר או אחר) בשלושת החודשים האחרונים </div>
+                            <input type="radio" id="eye-surgery-yes" name="eye_surgery" value="TRUE" onclick="disableEnableInput(['eye_surgery_details'], 'enable')">
+                            <label for="eye-surgery-yes">כן</label><br>
+                            <input type="radio" id="eye-surgery-no" name="eye_surgery" value="FALSE" checked="checked" onclick="disableEnableInput(['eye_surgery_details'], 'disable')">
+                            <label for="eye-surgery-no">לא</label><br>
+                            <div class="form-seperator"></div>
+                            
+                            <label for="eye_surgery_details">פרט וציין את תאריך הטיפול</label><br>
+                            <textarea name="eye_surgery_details" id="eye_surgery_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם הומלץ לך על ניתוח כלשהו אשר לא בוצע עד כה</div>
+                            <input type="radio" id="recommended-surgery-yes" name="recommended_surgery" value="TRUE" onclick="disableEnableInput(['recommended_surgery_details', 'recommended_surgery_incompletion_reason'], 'enable')">
+                            <label for="recommended-surgery-yes">כן</label><br>
+                            <input type="radio" id="recommended-surgery-no" name="recommended_surgery" value="FALSE" checked="checked" onclick="disableEnableInput(['recommended_surgery_details', 'recommended_surgery_incompletion_reason'], 'disable')">
+                            <label for="recommended-surgery-no">לא</label><br>
+                            <div class="form-seperator"></div>
+                            
+                            <label for="recommended_surgery_details">פרט מהו סוג הניתוח ומתי הומלץ</label><br>
+                            <textarea name="recommended_surgery_details" id="recommended_surgery_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+                            <label for="recommended_surgery_incompletion_reason">מדוע לא בוצע</label><br>
+                            <textarea name="recommended_surgery_incompletion_reason" id="recommended_surgery_incompletion_reason" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+                        </div>
+
+
+                        <div class="tab">
+                            <h3>האם סבלת לאחרונה או עדיין סובל מאחת המחלות או המצבים הבאים</h3>
+                            <div>נקעים חוזרים</div>
+                            <input type="radio" id="repeating-sprains-yes" name="repeating_sprains" value="TRUE">
+                            <label for="repeating-sprains-yes">כן</label><br>
+                            <input type="radio" id="repeating-sprains-no" name="repeating_sprains" value="FALSE" checked="checked">
+                            <label for="repeating-sprains-no">לא</label><br>
+                            <div class="form-seperator"></div>
+                            
+                            <div>האם כעת או בשבוע האחרון  סבלת מנקע </div>
+                            <input type="radio" id="current-week-sprains-yes" name="current_week_sprains" value="TRUE" onclick="disableEnableInput(['last_year_sprains'], 'enable')">
+                            <label for="current-week-sprains-yes">כן</label><br>
+                            <input type="radio" id="current-week-sprains-no" name="current_week_sprains" value="FALSE" checked="checked" onclick="disableEnableInput(['last_year_sprains'], 'disable')">
+                            <label for="current-week-sprains-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="last_year_sprains">מכמה נקעים סבלת בשנה האחרונה?</label><br>
+                            <input type="number" onkeypress="return event.charCode >= 48" id="last_year_sprains" name="last_year_sprains" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+                            <div>האם יש כעת מגבלה בדריכה או צליעה </div>
+                            <input type="radio" id="current-walking-disablity-yes" name="current_walking_disablity" value="TRUE" onclick="disableEnableInput(['current_walking_disablity_details'], 'enable')">
+                            <label for="current-walking-disablity-yes">כן</label><br>
+                            <input type="radio" id="current-walking-disablity-no" name="current_walking_disablity" value="FALSE" checked="checked" onclick="disableEnableInput(['current_walking_disablity_details'], 'disable')">
+                            <label for="current-walking-disablity-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="current_walking_disablity_details">פרט</label><br>
+                            <textarea name="current_walking_disablity_details" id="current_walking_disablity_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+                            <div>חבלת ראש או זעזוע מוח*</div>
+                            <input type="radio" id="head-injury-yes" name="head_injury" value="TRUE" onclick="disableEnableInput(['head_injury_when', 'head_injury_after_tzav_rishon', 'head_injury_supervision_or_problem'], 'enable')">
+                            <label for="head-injury-yes">כן</label><br>
+                            <input type="radio" id="head-injury-no" name="head_injury" value="FALSE" checked="checked" onclick="disableEnableInput(['head_injury_when', 'head_injury_after_tzav_rishon', 'head_injury_supervision_or_problem'], 'disable')">
+                            <label for="head-injury-no">לא</label><br>
+                            <p class="side-note">*מכה משמעותית לאזור הגולגולת והראש בעקבותיה נדרש המטופל לפנות לבדיקה ולפעמים גם לחדר מיון ולעבור סדרת בדיקות ומעקב ניורולוגי</p>
+                            <div class="form-seperator"></div>
+
+                            <label for="head_injury_when">מתי?</label><br>
+                            <input type="date" id="head_injury_when" name="head_injury_when" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+                            <div>האם אחרי צו ראשון?</div>
+                            <input type="radio" id="head-injury-after-tzav-rishon-yes" name="head_injury_after_tzav_rishon" value="TRUE" disabled="disabled">
+                            <label for="head-injury-after-tzav-rishon-yes">כן</label><br>
+                            <input type="radio" id="head-injury-after-tzav-rishon-no" name="head_injury_after_tzav_rishon" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="head-injury-after-tzav-rishon-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם אתה במעקב ע"י רופא מומחה או ידוע לך על בעיה כתוצאה מכך? </div>
+                            <input type="radio" id="head-injury-supervision-or-problem-yes" name="head_injury_supervision_or_problem" value="TRUE" disabled="disabled">
+                            <label for="head-injury-supervision-or-problem-yes">כן</label><br>
+                            <input type="radio" id="head-injury-supervision-or-problem-no" name="head_injury_supervision_or_problem" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="head-injury-supervision-or-problem-no">לא</label><br>
+                            <div class="form-seperator"></div>
+<!--  TAB -->
+                        </div>
+                        <div class="tab">
+                            <h3>האם סבלת לאחרונה או עדיין סובל מאחת המחלות או המצבים הבאים</h3>
+                            <div>כאבי ראש חוזרים</div>
+                            <input type="radio" id="repeating-headaches-yes" name="repeating_headaches" value="TRUE" onclick="disableEnableInput(['headaches_in_last_half_year', 'headaches_should_see_doctor', 'headaches_previous_checks', 'headaches_diagnosis', 'headaches_waking_up', 'headaches_with_blurred_vision', 'headaches_with_morning_vomit'], 'enable')">
+                            <label for="repeating-headaches-yes">כן</label><br>
+                            <input type="radio" id="repeating-headaches-no" name="repeating_headaches" value="FALSE" checked="checked" onclick="disableEnableInput(['headaches_in_last_half_year', 'headaches_should_see_doctor', 'headaches_previous_checks', 'headaches_diagnosis', 'headaches_waking_up', 'headaches_with_blurred_vision', 'headaches_with_morning_vomit'], 'disable')">
+                            <label for="repeating-headaches-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם כאבי הראש חדשים והופיעו בחצי שנה האחרונה?</div>
+                            <input type="radio" id="headaches-in-last-half-year-yes" name="headaches_in_last_half_year" value="TRUE" disabled="disabled">
+                            <label for="headaches-in-last-half-year-yes">כן</label><br>
+                            <input type="radio" id="headaches-in-last-half-year-no" name="headaches_in_last_half_year" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="headaches-in-last-half-year-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם לדעתך עליך להבדק ע"י רופא בנושא זה כעת?</div>
+                            <input type="radio" id="headaches-should-see-doctor-yes" name="headaches_should_see_doctor" value="TRUE" disabled="disabled">
+                            <label for="headaches-should-see-doctor-yes">כן</label><br>
+                            <input type="radio" id="headaches-should-see-doctor-no" name="headaches_should_see_doctor" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="headaches-should-see-doctor-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="headaches_previous_checks">פרט איזה בירור עברת בנושא באזרחות</label><br>
+                            <input type="text" id="headaches_previous_checks" name="headaches_previous_checks" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+                            <div>האם עברת בירור וקיימת אבחנה לכאבי הראש? </div>
+                            <input type="radio" id="headaches-diagnosis-yes" name="headaches_diagnosis" value="TRUE" disabled="disabled">
+                            <label for="headaches-diagnosis-yes">כן</label><br>
+                            <input type="radio" id="headaches-diagnosis-no" name="headaches_diagnosis" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="headaches-diagnosis-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם כאבי הראש מעירים משינה</div>
+                            <input type="radio" id="headaches-waking-up-yes" name="headaches_waking_up" value="TRUE" disabled="disabled">
+                            <label for="headaches-waking-up-yes">כן</label><br>
+                            <input type="radio" id="headaches-waking-up-no" name="headaches_waking_up" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="headaches-waking-up-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם מלווים בטשטוש ראייה</div>
+                            <input type="radio" id="headaches-with-blurred-vision-yes" name="headaches_with_blurred_vision" value="TRUE" disabled="disabled">
+                            <label for="headaches-with-blurred-vision-yes">כן</label><br>
+                            <input type="radio" id="headaches-with-blurred-vision-no" name="headaches_with_blurred_vision" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="headaches-with-blurred-vision-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם מלווים בהקאות בבוקר לאחר התעוררות?</div>
+                            <input type="radio" id="headaches-with-morning-vomit-yes" name="headaches_with_morning_vomit" value="TRUE" disabled="disabled">
+                            <label for="headaches-with-morning-vomit-yes">כן</label><br>
+                            <input type="radio" id="headaches-with-morning-vomit-no" name="headaches_with_morning_vomit" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="headaches-with-morning-vomit-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                        </div>
+
+                        <div class="tab">
+                            <h3>מחלות</h3>
+
+                            <div>התעלפויות חוזרות</div>
+                            <input type="radio" id="frequent-faintings-yes" name="frequent_faintings" value="TRUE" onclick="disableEnableInput(['fainting_during_exercise', 'fainting_after_exercise', 'faintings_in_last_year', 'faintings_previous_checks', 'faintings_additional_info'], 'enable')">
+                            <label for="frequent-faintings-yes">כן</label><br>
+                            <input type="radio" id="frequent-faintings-no" name="frequent_faintings" value="FALSE" checked="checked" onclick="disableEnableInput(['fainting_during_exercise', 'fainting_after_exercise', 'faintings_in_last_year', 'faintings_previous_checks', 'faintings_additional_info'], 'disable')">
+                            <label for="frequent-faintings-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+
+
+                            <div>האם מופיע במהלך פעילות גופנית?</div>
+                            <input type="radio" id="fainting-during-exercise-yes" name="fainting_during_exercise" value="TRUE" disabled="disabled">
+                            <label for="fainting-during-exercise-yes">כן</label><br>
+                            <input type="radio" id="fainting-during-exercise-no" name="fainting_during_exercise" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="fainting-during-exercise-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם מופיע לאחר פעילות גופנית?</div>
+                            <input type="radio" id="fainting-after-exercise-yes" name="fainting_after_exercise" value="TRUE" disabled="disabled">
+                            <label for="fainting-after-exercise-yes">כן</label><br>
+                            <input type="radio" id="fainting-after-exercise-no" name="fainting_after_exercise" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="fainting-after-exercise-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+
+                            <label for="faintings_in_last_year">כמה פעמים בשנה האחרונה קרה?</label><br>
+                            <input type="number" onkeypress="return event.charCode >= 48" id="faintings_in_last_year" name="faintings_in_last_year" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+                            <div>האם עברת בירור בנושא באזרחות?</div>
+                            <input type="radio" id="faintings-previous-checks-yes" name="faintings_previous_checks" value="TRUE" disabled="disabled">
+                            <label for="faintings-previous-checks-yes">כן</label><br>
+                            <input type="radio" id="faintings-previous-checks-no" name="faintings_previous_checks" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="faintings-previous-checks-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <label for="faintings_additional_info">פירוט</label><br>
+                            <input type="text" id="faintings_additional_info" name="faintings_additional_info" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+
+
+
+                            <div>הפרעות שמיעה</div>
+                            <input type="radio" id="hearing-problems-yes" name="hearing_problems" value="TRUE" onclick="disableEnableInput(['hearing_problems_details'], 'enable')">
+                            <label for="hearing-problems-yes">כן</label><br>
+                            <input type="radio" id="hearing-problems-no" name="hearing_problems" value="FALSE" checked="checked" onclick="disableEnableInput(['hearing_problems_details'], 'disable')">
+                            <label for="hearing-problems-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="hearing_problems_details">פירוט</label><br>
+                            <input type="text" id="hearing_problems_details" name="hearing_problems_details" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+
+                            <div>דלקות עיניים חוזרות</div>
+                            <input type="radio" id="repeating-eye-inflammation-yes" name="repeating_eye_inflammation" value="TRUE">
+                            <label for="repeating-eye-inflammation-yes">כן</label><br>
+                            <input type="radio" id="repeating-eye-inflammation-no" name="repeating_eye_inflammation" value="FALSE" checked="checked">
+                            <label for="repeating-eye-inflammation-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם אתה סובל כעת מדלקת עיניים</div>
+                            <input type="radio" id="currently-with-eye-inflammation-yes" name="currently_with_eye_inflammation" value="TRUE">
+                            <label for="currently-with-eye-inflammation-yes">כן</label><br>
+                            <input type="radio" id="currently-with-eye-inflammation-no" name="currently_with_eye_inflammation" value="FALSE" checked="checked">
+                            <label for="currently-with-eye-inflammation-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם יש לך טיפול קבוע בגלל דלקות עיניים</div>
+                            <input type="radio" id="eye-inflammation-routine_treatment-yes" name="eye_inflammation_routine_treatment" value="TRUE">
+                            <label for="eye-inflammation-routine_treatment-yes">כן</label><br>
+                            <input type="radio" id="eye-inflammation-routine_treatment-no" name="eye_inflammation_routine_treatment" value="FALSE" checked="checked">
+                            <label for="eye-inflammation-routine_treatment-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                        </div>
+                        <div class="tab">
+                            <h3>מחלות</h3>
+
+                            <div>כאב בבית החזה</div>
+                            <input type="radio" id="chest-pain-yes" name="chest_pain" value="TRUE" onclick="disableEnableInput(['chest_pain_from_exercise', 'is_chest_pain_limiting', 'chest_pain_previous_checks'], 'enable')">
+                            <label for="chest-pain-yes">כן</label><br>
+                            <input type="radio" id="chest-pain-no" name="chest_pain" value="FALSE" checked="checked" onclick="disableEnableInput(['chest_pain_from_exercise', 'is_chest_pain_limiting', 'chest_pain_previous_checks'], 'disable')">
+                            <label for="chest-pain-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם הכאבים הללו קשורים לפעילות גופנית?</div>
+                            <input type="radio" id="chest-pain-from-exercise-yes" name="chest_pain_from_exercise" value="TRUE" disabled="disabled">
+                            <label for="chest-pain-from-exercise-yes">כן</label><br>
+                            <input type="radio" id="chest-pain-from-exercise-no" name="chest_pain_from_exercise" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="chest-pain-from-exercise-no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם הגביל אותך בעבר בפעילות כלשהי?</div>
+                            <input type="radio" id="is_chest_pain_limiting_yes" name="is_chest_pain_limiting" value="TRUE" disabled="disabled">
+                            <label for="is_chest_pain_limiting_yes">כן</label><br>
+                            <input type="radio" id="is_chest_pain_limiting_no" name="is_chest_pain_limiting" value="FALSE" disabled="disabled" checked="checked">
+                            <label for="is_chest_pain_limiting_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם  עברת בירור בנושא באזרחות?</div>
+                            <input type="radio" id="chest_pain_previous_checks_yes" name="chest_pain_previous_checks" value="TRUE" disabled="disabled" onclick="disableEnableInput(['chest_pain_previous_checks_details'], 'enable')">
+                            <label for="chest_pain_previous_checks_yes">כן</label><br>
+                            <input type="radio" id="chest_pain_previous_checks_no" name="chest_pain_previous_checks" value="FALSE" disabled="disabled" checked="checked" onclick="disableEnableInput(['chest_pain_previous_checks_details'], 'disable')">
+                            <label for="chest_pain_previous_checks_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <label for="chest_pain_previous_checks_details">פירוט הבירור שעברת</label><br>
+                            <input type="text" id="chest_pain_previous_checks_details" name="chest_pain_previous_checks_details" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+<!--  -->
+
+
+                            <div>הפרעות בקצב הלב</div>
+                            <input type="radio" id="arrhythmia_yes" name="arrhythmia" value="TRUE" onclick="disableEnableInput(['arrhythmia_in_exercise', 'arrhythmia_previous_checks'], 'enable')">
+                            <label for="arrhythmia_yes">כן</label><br>
+                            <input type="radio" id="arrhythmia_no" name="arrhythmia" value="FALSE" checked="checked" onclick="disableEnableInput(['arrhythmia_in_exercise', 'arrhythmia_previous_checks'], 'disable')">
+                            <label for="arrhythmia_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם מופיע או מגביל בפעילות גופנית?</div>
+                            <input type="radio" id="arrhythmia_in_exercise_yes" name="arrhythmia_in_exercise" value="TRUE" disabled="disabled">
+                            <label for="arrhythmia_in_exercise_yes">כן</label><br>
+                            <input type="radio" id="arrhythmia_in_exercise_no" name="arrhythmia_in_exercise" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="arrhythmia_in_exercise_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+
+                            <div>האם עברת בירור בנושא באזרחות?</div>
+                            <input type="radio" id="arrhythmia_previous_checks_yes" name="arrhythmia_previous_checks" value="TRUE" disabled="disabled" onclick="disableEnableInput(['arrhythmia_previous_checks_details'], 'enable')">
+                            <label for="arrhythmia_previous_checks_yes">כן</label><br>
+                            <input type="radio" id="arrhythmia_previous_checks_no" name="arrhythmia_previous_checks" value="FALSE" disabled="disabled" checked="checked" onclick="disableEnableInput(['arrhythmia_previous_checks_details'], 'disable')">
+                            <label for="arrhythmia_previous_checks_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <label for="arrhythmia_previous_checks_details">פירוט</label><br>
+                            <input type="text" id="arrhythmia_previous_checks_details" name="arrhythmia_previous_checks_details" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+<!--  -->
+                        </div>
+                        <div class="tab">
+                            <h3>מחלות</h3>
+                            <div>האם אתה סובל ממחלת אסתמה?</div>
+                            <input type="radio" id="asthma_yes" name="asthma" value="TRUE" onclick="disableEnableInput(['asthma_hospital_admission', 'asthma_recent_deterioration', 'asthma_enough_inhalers', 'asthma_deterioration_since_profile_determination'], 'enable')">
+                            <label for="asthma_yes">כן</label><br>
+                            <input type="radio" id="asthma_no" name="asthma" value="FALSE" checked="checked" onclick="disableEnableInput(['asthma_hospital_admission', 'asthma_recent_deterioration', 'asthma_enough_inhalers', 'asthma_deterioration_since_profile_determination'], 'disable')">
+                            <label for="asthma_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם אושפזת או היית במוקד לרפואה דחופה (מיון או ביקור רופא) בשל החמרה קשה של מחלת אסתמה בשנה האחרונה?</div>
+                            <input type="radio" id="asthma_hospital_admission_yes" name="asthma_hospital_admission" value="TRUE" disabled="disabled">
+                            <label for="asthma_hospital_admission_yes">כן</label><br>
+                            <input type="radio" id="asthma_hospital_admission_no" name="asthma_hospital_admission" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="asthma_hospital_admission_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם אתה מרגיש שבחודש האחרון:  ישנה החמרה במחלת האסתמה (יותר התקפים, מתעורר בלילה, שימוש תדיר במשאפי וונטולין)?</div>
+                            <input type="radio" id="asthma_recent_deterioration_yes" name="asthma_recent_deterioration" value="TRUE" disabled="disabled">
+                            <label for="asthma_recent_deterioration_yes">כן</label><br>
+                            <input type="radio" id="asthma_recent_deterioration_no" name="asthma_recent_deterioration" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="asthma_recent_deterioration_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם יש לך מספיק משאפים כעת לטיפול במחלת האסתמה? (יש להתריע במידה ואין מספיק לחודש של טיפול)</div>
+                            <input type="radio" id="asthma_enough_inhalers_yes" name="asthma_enough_inhalers" value="TRUE" disabled="disabled">
+                            <label for="asthma_enough_inhalers_yes">כן</label><br>
+                            <input type="radio" id="asthma_enough_inhalers_no" name="asthma_enough_inhalers" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="asthma_enough_inhalers_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם הבעיה החמירה מאז קביעת הפרופיל בלשכת הגיוס?</div>
+                            <input type="radio" id="asthma_deterioration_since_profile_determination_yes" name="asthma_deterioration_since_profile_determination" value="TRUE" disabled="disabled">
+                            <label for="asthma_deterioration_since_profile_determination_yes">כן</label><br>
+                            <input type="radio" id="asthma_deterioration_since_profile_determination_no" name="asthma_deterioration_since_profile_determination" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="asthma_deterioration_since_profile_determination_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+<!-- -->
+
+
+
+
+                            <div>קוצר נשימה במאמץ, צפצופים בנשימה - שלא מדובר באסתמה</div>
+                            <input type="radio" id="breathing_problems_yes" name="breathing_problems" value="TRUE" onclick="disableEnableInput(['breathing_problems_previous_checks', 'breathing_problems_details'], 'enable')">
+                            <label for="breathing_problems_yes">כן</label><br>
+                            <input type="radio" id="breathing_problems_no" name="breathing_problems" value="FALSE" checked="checked" onclick="disableEnableInput(['breathing_problems_previous_checks', 'breathing_problems_details'], 'disable')">
+                            <label for="breathing_problems_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם עברת בירור בנושא באזרחות?</div>
+                            <input type="radio" id="breathing_problems_previous_checks_yes" name="breathing_problems_previous_checks" value="TRUE" disabled="disabled">
+                            <label for="breathing_problems_previous_checks_yes">כן</label><br>
+                            <input type="radio" id="breathing_problems_previous_checks_no" name="breathing_problems_previous_checks" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="breathing_problems_previous_checks_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+
+                            <label for="breathing_problems_details">פירוט:</label><br>
+                            <textarea name="breathing_problems_details" id="breathing_problems_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+                            <!--  -->
+
+                        </div>
+                        <div class="tab">
+                            <h3>מחלות</h3>
+                            <div>כאבי גב ממושכים</div>
+                            <input type="radio" id="continious_backaches_yes" name="continious_backaches" value="TRUE" onclick="disableEnableInput(['are_continious_backaches_new', 'continious_backaches_with_weight_loss', 'continious_backaches_with_night_sweat', 'continious_backaches_previous_checks', 'continious_backaches_details'], 'enable')">
+                            <label for="continious_backaches_yes">כן</label><br>
+                            <input type="radio" id="continious_backaches_no" name="continious_backaches" value="FALSE" checked="checked" onclick="disableEnableInput(['are_continious_backaches_new', 'continious_backaches_with_weight_loss', 'continious_backaches_with_night_sweat', 'continious_backaches_previous_checks', 'continious_backaches_details'], 'disable')">
+                            <label for="continious_backaches_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם כאבי הגב חדשים? (בחודש האחרון)</div>
+                            <input type="radio" id="are_continious_backaches_new_yes" name="are_continious_backaches_new" value="TRUE" disabled="disabled">
+                            <label for="are_continious_backaches_new_yes">כן</label><br>
+                            <input type="radio" id="are_continious_backaches_new_no" name="are_continious_backaches_new" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="are_continious_backaches_new_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם כאבי הגב מלווים בירידה במשקל?</div>
+                            <input type="radio" id="continious_backaches_with_weight_loss_yes" name="continious_backaches_with_weight_loss" value="TRUE" disabled="disabled">
+                            <label for="continious_backaches_with_weight_loss_yes">כן</label><br>
+                            <input type="radio" id="continious_backaches_with_weight_loss_no" name="continious_backaches_with_weight_loss" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="continious_backaches_with_weight_loss_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם כאבי הגב מלווים בהזעות לילה?*</div>
+                            <input type="radio" id="continious_backaches_with_night_sweat_yes" name="continious_backaches_with_night_sweat" value="TRUE" disabled="disabled">
+                            <label for="continious_backaches_with_night_sweat_yes">כן</label><br>
+                            <input type="radio" id="continious_backaches_with_night_sweat_no" name="continious_backaches_with_night_sweat" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="continious_backaches_with_night_sweat_no">לא</label><br>
+                            <p class="side-note">*הזעה קיצונית במהלך השינה, עד מצב בו יש להחליף מצעים בשל רטיבות</p>
+                            <div class="form-seperator"></div>
+
+
+
+                            <div>האם עברו בירור באזרחות?</div>
+                            <input type="radio" id="continious_backaches_previous_checks_yes" name="continious_backaches_previous_checks" value="TRUE" disabled="disabled">
+                            <label for="continious_backaches_previous_checks_yes">כן</label><br>
+                            <input type="radio" id="continious_backaches_previous_checks_no" name="continious_backaches_previous_checks" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="continious_backaches_previous_checks_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <label for="continious_backaches_details">פירוט:</label><br>
+                            <textarea name="continious_backaches_details" id="continious_backaches_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+                        </div>
+                        <div class="tab">
+                            <h3>מחלות</h3>
+                            <div>מחלות עור*</div>
+                            <input type="radio" id="skin_diseases_yes" name="skin_diseases" value="TRUE" onclick="disableEnableInput(['skin_diseases_currently_treated', 'skin_diseases_currently_treated_details', 'skin_diseases_taking_rakotan'], 'enable')">
+                            <label for="skin_diseases_yes">כן</label><br>
+                            <input type="radio" id="skin_diseases_no" name="skin_diseases" value="FALSE" checked="checked" onclick="disableEnableInput(['skin_diseases_currently_treated', 'skin_diseases_currently_treated_details', 'skin_diseases_taking_rakotan'], 'disable')">
+                            <label for="skin_diseases_no">לא</label><br>
+                            <p class="side-note">*כגון פצע שאינו מתרפא, שינוי חריג בנקודת חן בחודשים האחרונים, טיפול תרופתי לאקנה (פצעונים) וכו'</p>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם אתה מטופל ע"י רופא עור בשל כך?</div>
+                            <input type="radio" id="skin_diseases_currently_treated_yes" name="skin_diseases_currently_treated" value="TRUE" disabled="disabled">
+                            <label for="skin_diseases_currently_treated_yes">כן</label><br>
+                            <input type="radio" id="skin_diseases_currently_treated_no" name="skin_diseases_currently_treated" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="skin_diseases_currently_treated_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <label for="skin_diseases_currently_treated_details">במידה וכן, מה הטיפול?</label><br>
+                            <input type="text" id="skin_diseases_currently_treated_details" name="skin_diseases_currently_treated_details" disabled="disabled">
+                            <div class="form-seperator"></div>
+
+
+
+                            <div>האם אתה נוטל ראקוטן כעת?</div>
+                            <input type="radio" id="skin_diseases_taking_rakotan_yes" name="skin_diseases_taking_rakotan" value="TRUE" disabled="disabled">
+                            <label for="skin_diseases_taking_rakotan_yes">כן</label><br>
+                            <input type="radio" id="skin_diseases_taking_rakotan_no" name="skin_diseases_taking_rakotan" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="skin_diseases_taking_rakotan_no">לא</label><br>
+                            <div class="form-seperator"></div>
+                            <!--  -->
+
+                            <div>נפיחות, גוש, כאבים במשפעה או באשכים</div>
+                            <input type="radio" id="crotch_issues_yes" name="crotch_issues" value="TRUE" onclick="disableEnableInput(['crotch_issues_type', 'crotch_issues_previous_checks', 'crotch_issues_details'], 'enable')">
+                            <label for="crotch_issues_yes">כן</label><br>
+                            <input type="radio" id="crotch_issues_no" name="crotch_issues" value="FALSE" checked="checked" onclick="disableEnableInput(['crotch_issues_type', 'crotch_issues_previous_checks', 'crotch_issues_details'], 'disable')">
+                            <label for="crotch_issues_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+
+                            <div>מדוע סימנת כן?</div>
+                            <input type="radio" id="pains" name="crotch_issues_type" value="pains" disabled="disabled">
+                            <label for="pains">כאבים</label><br>
+                            <input type="radio" id="lump" name="crotch_issues_type" value="lump" checked="checked" disabled="disabled">
+                            <label for="lump">גוש</label><br>
+                            <input type="radio" id="swelling" name="crotch_issues_type" value="swelling" checked="checked" disabled="disabled">
+                            <label for="swelling">נפיחות</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם הם עברו בירור באזרחות?</div>
+                            <input type="radio" id="crotch_issues_previous_checks_yes" name="crotch_issues_previous_checks" value="TRUE" disabled="disabled">
+                            <label for="crotch_issues_previous_checks_yes">כן</label><br>
+                            <input type="radio" id="crotch_issues_previous_checks_no" name="crotch_issues_previous_checks" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="crotch_issues_previous_checks_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+
+                            <label for="crotch_issues_details">פירוט</label><br>
+                            <textarea name="crotch_issues_details" id="crotch_issues_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+<!--  -->
+
+
+                            <!--  -->
+
+                            <div>בעיות ברצועות או במיניסקוס*</div>
+                            <input type="radio" id="meniscus_or_band_issues_yes" name="meniscus_or_band_issues" value="TRUE" onclick="disableEnableInput(['meniscus_or_band_issues_restrict_functioning', 'meniscus_or_band_issues_diagnosed_after_profile_determined'], 'enable')">
+                            <label for="meniscus_or_band_issues_yes">כן</label><br>
+                            <input type="radio" id="meniscus_or_band_issues_no" name="meniscus_or_band_issues" value="FALSE" checked="checked" onclick="disableEnableInput(['meniscus_or_band_issues_restrict_functioning', 'meniscus_or_band_issues_diagnosed_after_profile_determined'], 'disable')">
+                            <label for="meniscus_or_band_issues_no">לא</label><br>
+                            <p class="side-note">*פציעת ברך משמעותית אשר בד"כ מאובחנת לאחר בדיקת אורתופד וביצוע הדמיה מתאימה</p>
+                            <p class="side-note">**במידה וסימנת כן, ובמידה ולא דווח בצו ראשון - תזומן בהמשך לבדיקה. יש לוודא כי יש בידיך את הבירור (על דפים או בטלפון) להציג כבר במפגש הראשון (הדמייה וייעוץ רופא מומחה).</p>
+                            <div class="form-seperator"></div>
+
+                            <div>האם כעת מגביל תפקודית (גורם לכאבים בהליכה או עמידה)?</div>
+                            <input type="radio" id="meniscus_or_band_issues_restrict_functioning_yes" name="meniscus_or_band_issues_restrict_functioning" value="TRUE" disabled="disabled">
+                            <label for="meniscus_or_band_issues_restrict_functioning_yes">כן</label><br>
+                            <input type="radio" id="meniscus_or_band_issues_restrict_functioning_no" name="meniscus_or_band_issues_restrict_functioning" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="meniscus_or_band_issues_restrict_functioning_no">לא</label><br>
+                            <div class="form-seperator"></div>                            
+
+
+                            <div>האם אובחנת במצב זה לאחר קביעת הפרופיל בלשכת הגיוס?</div>
+                            <input type="radio" id="meniscus_or_band_issues_diagnosed_after_profile_determined_yes" name="meniscus_or_band_issues_diagnosed_after_profile_determined" value="TRUE" disabled="disabled">
+                            <label for="meniscus_or_band_issues_diagnosed_after_profile_determined_yes">כן</label><br>
+                            <input type="radio" id="meniscus_or_band_issues_diagnosed_after_profile_determined_no" name="meniscus_or_band_issues_diagnosed_after_profile_determined" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="meniscus_or_band_issues_diagnosed_after_profile_determined_no">לא</label><br>
+                            <div class="form-seperator"></div>
+<!--  -->
+
+                        </div>
+                        <div class="tab">
+                            <h3>מחלות</h3>
+                            <div>כאבי בטן או שלשולים*הנמשכים מעל לחודש* </div>
+                            <input type="radio" id="stomachaches_or_diarrhea_yes" name="stomachaches_or_diarrhea" value="TRUE" onclick="disableEnableInput(['unusual_stomachaches', 'diarrhea_for_over_a_week', 'diarrhea_with_blood_or_saliva', 'stomachaches_or_diarrhea_with_fever', 'stomachaches_or_diarrhea_back_from_abroad', 'diarrhea_people_around_you', 'stomachaches_or_diarrhea_weight_loss', 'stomachaches_or_toilet_traffic_change', 'stomachaches_or_diarrhea_vomit', 'stomachaches_or_diarrhea_previous_checks', 'stomachaches_or_diarrhea_details'], 'enable')">
+                            <label for="stomachaches_or_diarrhea_yes">כן</label><br>
+                            <input type="radio" id="stomachaches_or_diarrhea_no" name="stomachaches_or_diarrhea" value="FALSE" checked="checked" onclick="disableEnableInput(['unusual_stomachaches', 'diarrhea_for_over_a_week', 'diarrhea_with_blood_or_saliva', 'stomachaches_or_diarrhea_with_fever', 'stomachaches_or_diarrhea_back_from_abroad', 'diarrhea_people_around_you', 'stomachaches_or_diarrhea_weight_loss', 'stomachaches_or_toilet_traffic_change', 'stomachaches_or_diarrhea_vomit', 'stomachaches_or_diarrhea_previous_checks', 'stomachaches_or_diarrhea_details'], 'disable')">
+                            <label for="stomachaches_or_diarrhea_no">לא</label><br>
+                            <p class="side-note">*מצב בו בתקופה האחרונה הופיעו כאבי בטן שלא היו לפני כן, בד"כ מלווים בתסמינים נוספים כמו שלשולים (יציאות נוזליות יותר מ3 פעמים ביום) או הקאות, ירידה במשקל, חום, חוסר תיאבון ועוד. לא מדובר באירוע קצר של כאבי בטן ושלשולים שהופיעו למספר ימים וחלפו</p>
+                            <div class="form-seperator"></div>
+
+                            <div>האם יש כאבי בטן חריגים במהלך החודש האחרון?</div>
+                            <input type="radio" id="unusual_stomachaches_yes" name="unusual_stomachaches" value="TRUE" disabled="disabled">
+                            <label for="unusual_stomachaches_yes">כן</label><br>
+                            <input type="radio" id="unusual_stomachaches_no" name="unusual_stomachaches" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="unusual_stomachaches_no">לא</label><br>
+                            <div class="form-seperator"></div>                            
+
+
+                            <div>האם יש שלשולים הנמשכים למעלה משבוע?</div>
+                            <input type="radio" id="diarrhea_for_over_a_week_yes" name="diarrhea_for_over_a_week" value="TRUE" disabled="disabled">
+                            <label for="diarrhea_for_over_a_week_yes">כן</label><br>
+                            <input type="radio" id="diarrhea_for_over_a_week_no" name="diarrhea_for_over_a_week" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="diarrhea_for_over_a_week_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם מלווים בדם או ריר?</div>
+                            <input type="radio" id="diarrhea_with_blood_or_saliva_yes" name="diarrhea_with_blood_or_saliva" value="TRUE" disabled="disabled">
+                            <label for="diarrhea_with_blood_or_saliva_yes">כן</label><br>
+                            <input type="radio" id="diarrhea_with_blood_or_saliva_no" name="diarrhea_with_blood_or_saliva" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="diarrhea_with_blood_or_saliva_no">לא</label><br>
+                            <div class="form-seperator"></div>                            
+
+
+                            <div>האם יש חום?</div>
+                            <input type="radio" id="stomachaches_or_diarrhea_with_fever_yes" name="stomachaches_or_diarrhea_with_fever" value="TRUE" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_with_fever_yes">כן</label><br>
+                            <input type="radio" id="stomachaches_or_diarrhea_with_fever_no" name="stomachaches_or_diarrhea_with_fever" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_with_fever_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם חזרת מחו"ל בחודשים האחרונים?</div>
+                            <input type="radio" id="stomachaches_or_diarrhea_back_from_abroad_yes" name="stomachaches_or_diarrhea_back_from_abroad" value="TRUE" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_back_from_abroad_yes">כן</label><br>
+                            <input type="radio" id="stomachaches_or_diarrhea_back_from_abroad_no" name="stomachaches_or_diarrhea_back_from_abroad" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_back_from_abroad_no">לא</label><br>
+                            <div class="form-seperator"></div>                            
+
+
+                            <div>האם יש עוד משלשלים בסביבתך?</div>
+                            <input type="radio" id="diarrhea_people_around_you_yes" name="diarrhea_people_around_you" value="TRUE" disabled="disabled">
+                            <label for="diarrhea_people_around_you_yes">כן</label><br>
+                            <input type="radio" id="diarrhea_people_around_you_no" name="diarrhea_people_around_you" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="diarrhea_people_around_you_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם יש ירידה במשקל?</div>
+                            <input type="radio" id="stomachaches_or_diarrhea_weight_loss_yes" name="stomachaches_or_diarrhea_weight_loss" value="TRUE" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_weight_loss_yes">כן</label><br>
+                            <input type="radio" id="stomachaches_or_diarrhea_weight_loss_no" name="stomachaches_or_diarrhea_weight_loss" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_weight_loss_no">לא</label><br>
+                            <div class="form-seperator"></div>                            
+
+
+                            <div>שינוי ביציאות? (עצירות או שלשול)</div>
+                            <input type="radio" id="stomachaches_or_toilet_traffic_change_yes" name="stomachaches_or_toilet_traffic_change" value="TRUE" disabled="disabled">
+                            <label for="stomachaches_or_toilet_traffic_change_yes">כן</label><br>
+                            <input type="radio" id="stomachaches_or_toilet_traffic_change_no" name="stomachaches_or_toilet_traffic_change" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="stomachaches_or_toilet_traffic_change_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>הקאות?</div>
+                            <input type="radio" id="stomachaches_or_diarrhea_vomit_yes" name="stomachaches_or_diarrhea_vomit" value="TRUE" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_vomit_yes">כן</label><br>
+                            <input type="radio" id="stomachaches_or_diarrhea_vomit_no" name="stomachaches_or_diarrhea_vomit" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_vomit_no">לא</label><br>
+                            <div class="form-seperator"></div>                            
+
+
+                            <div>האם הם עברו בירור באזרחות?</div>
+                            <input type="radio" id="stomachaches_or_diarrhea_previous_checks_yes" name="stomachaches_or_diarrhea_previous_checks" value="TRUE" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_previous_checks_yes">כן</label><br>
+                            <input type="radio" id="stomachaches_or_diarrhea_previous_checks_no" name="stomachaches_or_diarrhea_previous_checks" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="stomachaches_or_diarrhea_previous_checks_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="stomachaches_or_diarrhea_details">פירוט</label><br>
+                            <textarea name="stomachaches_or_diarrhea_details" id="stomachaches_or_diarrhea_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+<!--  -->
+
+
+                        </div>
+                        <div class="tab">
+                            <h3>מחלות</h3>
+
+                            <div>ירידה במשקל של יותר מ5 ק"ג בפחות מ6 חודשים</div>
+                            <input type="radio" id="weight_loss_5kg_6mo_yes" name="weight_loss_5kg_6mo" value="TRUE" onclick="disableEnableInput(['weight_loss_5kg_6mo_intentional'], 'enable')">
+                            <label for="weight_loss_5kg_6mo_yes">כן</label><br>
+                            <input type="radio" id="weight_loss_5kg_6mo_no" name="weight_loss_5kg_6mo" value="FALSE" checked="checked" onclick="disableEnableInput(['weight_loss_5kg_6mo_intentional'], 'disable')">
+                            <label for="weight_loss_5kg_6mo_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div>האם מדובר בירידה מכוונת במשקל (פעילות גופנית, דיאטה)?</div>
+                            <input type="radio" id="weight_loss_5kg_6mo_intentional_yes" name="weight_loss_5kg_6mo_intentional" value="TRUE" disabled="disabled">
+                            <label for="weight_loss_5kg_6mo_intentional_yes">כן</label><br>
+                            <input type="radio" id="weight_loss_5kg_6mo_intentional_no" name="weight_loss_5kg_6mo_intentional" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="weight_loss_5kg_6mo_intentional_no">לא</label><br>
+                            <div class="form-seperator"></div>                            
+<!--  -->
+                            <div>אירוע של פגיעת חום*</div>
+                            <input type="radio" id="heat_injury_yes" name="heat_injury" value="TRUE" onclick="disableEnableInput(['heat_injury_details'], 'enable')">
+                            <label for="heat_injury_yes">כן</label><br>
+                            <input type="radio" id="heat_injury_no" name="heat_injury" value="FALSE" checked="checked" onclick="disableEnableInput(['heat_injury_details'], 'disable')">
+                            <label for="heat_injury_no">לא</label><br>
+                            <p class="side-note">*מצב רפואי חריג וקשה שבד"כ קורה כתוצאה מחשיפה לחום בעת מאמץ גופני חריג ובד"כ גורם לעליית טמפ' הגוף סביב 40 מעלות (ולא בגלל מחלה). הטיפול הוא לרוב קירור משמעותי דרך עירוי ואמבטיות קרח, אשפוז בבית חולים ובירור בהמשך</p>
+                            <div class="form-seperator"></div>
+
+                            <label for="heat_injury_details">פירוט</label><br>
+                            <textarea name="heat_injury_details" id="heat_injury_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+                            <!--  -->
+
+
+
+                            <div>האם עברת טיפול פסיכולוגי או פסיכיאטרי?</div>
+                            <input type="radio" id="psycho_treatment_yes" name="psycho_treatment" value="TRUE" onclick="disableEnableInput(['psycho_treatment_details', 'psycho_treatment_continue_with_idf'], 'enable')">
+                            <label for="psycho_treatment_yes">כן</label><br>
+                            <input type="radio" id="psycho_treatment_no" name="psycho_treatment" value="FALSE" checked="checked" onclick="disableEnableInput(['psycho_treatment_details', 'psycho_treatment_continue_with_idf'], 'disable')">
+                            <label for="psycho_treatment_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="psycho_treatment_details">פירוט</label><br>
+                            <textarea name="psycho_treatment_details" id="psycho_treatment_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם היית מעוניין להמשיך את הטיפול במסגרת צה"ל</div>
+                            <input type="radio" id="psycho_treatment_continue_with_idf_yes" name="psycho_treatment_continue_with_idf" value="TRUE" disabled="disabled">
+                            <label for="psycho_treatment_continue_with_idf_yes">כן</label><br>
+                            <input type="radio" id="psycho_treatment_continue_with_idf_no" name="psycho_treatment_continue_with_idf" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="psycho_treatment_continue_with_idf_no">לא</label><br>
+                            <div class="form-seperator"></div>
+<!--  -->
+
+
+                            <div>האם קיימת בעיה פסיכולוגית או פסיכיאטרית?</div>
+                            <input type="radio" id="psycho_issue_yes" name="psycho_issue" value="TRUE" onclick="disableEnableInput(['psycho_issue_details'], 'enable')">
+                            <label for="psycho_issue_yes">כן</label><br>
+                            <input type="radio" id="psycho_issue_no" name="psycho_issue" value="FALSE" checked="checked" onclick="disableEnableInput(['psycho_issue_details'], 'disable')">
+                            <label for="psycho_issue_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="psycho_issue_details">פירוט</label><br>
+                            <textarea name="psycho_issue_details" id="psycho_issue_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+<!--  -->
+                        </div>
+                        <div class="tab">
+                            <h3>מחלות</h3>
+                            <div>האם היית מאושפז בבית חולים ב3 השנים האחרונות?*</div>
+                            <input type="radio" id="last_3yr_hospitalization_yes" name="last_3yr_hospitalization" value="TRUE" onclick="disableEnableInput(['last_3yr_hospitalization_details'], 'enable')">
+                            <label for="last_3yr_hospitalization_yes">כן</label><br>
+                            <input type="radio" id="last_3yr_hospitalization_no" name="last_3yr_hospitalization" value="FALSE" checked="checked" onclick="disableEnableInput(['last_3yr_hospitalization_details'], 'disable')">
+                            <label for="last_3yr_hospitalization_no">לא</label><br>
+                            <p class="side-note">*מדובר במצב רפואי בגינו הופנית לבית חולים ואושפזת לצורך טיפול ובירור רפואי</p>
+                            <div class="form-seperator"></div>
+
+                            <label for="last_3yr_hospitalization_details">פירוט סיבות האשפוז</label><br>
+                            <textarea name="last_3yr_hospitalization_details" id="last_3yr_hospitalization_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+<!--  -->
+
+
+
+                            <div>בעיה רפואית אחרת שאינה מפורטת כאן</div>
+                            <input type="radio" id="other_medical_issue_yes" name="other_medical_issue" value="TRUE" onclick="disableEnableInput(['other_medical_issue_details'], 'enable')">
+                            <label for="other_medical_issue_yes">כן</label><br>
+                            <input type="radio" id="other_medical_issue_no" name="other_medical_issue" value="FALSE" checked="checked" onclick="disableEnableInput(['other_medical_issue_details'], 'disable')">
+                            <label for="other_medical_issue_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="other_medical_issue_details">פירוט</label><br>
+                            <textarea name="other_medical_issue_details" id="other_medical_issue_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+<!--  -->
+
+                            <div>האם אתה נוטל סמים, תקופות לשינה או להרגעה?</div>
+                            <input type="radio" id="relaxation_sleep_drugs_yes" name="relaxation_sleep_drugs" value="TRUE" onclick="disableEnableInput(['relaxation_sleep_drugs_details', 'enough_relaxation_sleep_drugs'], 'enable')">
+                            <label for="relaxation_sleep_drugs_yes">כן</label><br>
+                            <input type="radio" id="relaxation_sleep_drugs_no" name="relaxation_sleep_drugs" value="FALSE" checked="checked" onclick="disableEnableInput(['relaxation_sleep_drugs_details', 'enough_relaxation_sleep_drugs'], 'disable')">
+                            <label for="relaxation_sleep_drugs_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="relaxation_sleep_drugs_details">אם כן, אילו?</label><br>
+                            <textarea name="relaxation_sleep_drugs_details" id="relaxation_sleep_drugs_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+                            <div>האם יש לך מספיק לחודש הקרוב</div>
+                            <input type="radio" id="enough_relaxation_sleep_drugs_yes" name="enough_relaxation_sleep_drugs" value="TRUE" disabled="disabled">
+                            <label for="enough_relaxation_sleep_drugs_yes">כן</label><br>
+                            <input type="radio" id="enough_relaxation_sleep_drugs_no" name="enough_relaxation_sleep_drugs" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="enough_relaxation_sleep_drugs_no">לא</label><br>
+                            <div class="form-seperator"></div>
+<!--  -->
+
+
+                        </div>
+                        <div class="tab">
+                            <h3>הרגלים ותרופות</h3>
+                            <!--  -->
+                            <div>האם אתה שותה משקאות אלכוהוליים לעתים תכופות? (מעבר לשתייה באירועים חברתיים)</div>
+                            <input type="radio" id="alcohol_consumption_yes" name="alcohol_consumption" value="TRUE" onclick="disableEnableInput(['alcohol_consumption_details'], 'enable')">
+                            <label for="alcohol_consumption_yes">כן</label><br>
+                            <input type="radio" id="alcohol_consumption_no" name="alcohol_consumption" value="FALSE" checked="checked" onclick="disableEnableInput(['alcohol_consumption_details'], 'disable')">
+                            <label for="alcohol_consumption_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="alcohol_consumption_details">אם כן, פרט לגבי התדירות</label><br>
+                            <textarea name="alcohol_consumption_details" id="alcohol_consumption_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+                            <div>האם אתה נוטל תרופה כלשהי בקביעות? (שלא התייחסת לכך עד כה בשאלון)</div>
+                            <input type="radio" id="other_drugs_consumption_yes" name="other_drugs_consumption" value="TRUE" onclick="disableEnableInput(['other_drugs_consumption_details', 'enough_of_other_drugs'], 'enable')">
+                            <label for="other_drugs_consumption_yes">כן</label><br>
+                            <input type="radio" id="other_drugs_consumption_no" name="other_drugs_consumption" value="FALSE" checked="checked" onclick="disableEnableInput(['other_drugs_consumption_details', 'enough_of_other_drugs'], 'disable')">
+                            <label for="other_drugs_consumption_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="other_drugs_consumption_details">אם כן, אילו?</label><br>
+                            <textarea name="other_drugs_consumption_details" id="other_drugs_consumption_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+
+                            <div>האם יש לך מספיק לחודש הקרוב</div>
+                            <input type="radio" id="enough_of_other_drugs_yes" name="enough_of_other_drugs" value="TRUE" disabled="disabled">
+                            <label for="enough_of_other_drugs_yes">כן</label><br>
+                            <input type="radio" id="enough_of_other_drugs_no" name="enough_of_other_drugs" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="enough_of_other_drugs_no">לא</label><br>
+                            <div class="form-seperator"></div>
+<!--  -->
+
+                            <div>האם אתה נמנע מאכילת מזון מסוים עקב אלרגיה?</div>
+                            <input type="radio" id="food_allergies_yes" name="food_allergies" value="TRUE" onclick="disableEnableInput(['food_allergies_details'], 'enable')">
+                            <label for="food_allergies_yes">כן</label><br>
+                            <input type="radio" id="food_allergies_no" name="food_allergies" value="FALSE" checked="checked" onclick="disableEnableInput(['food_allergies_details'], 'disable')">
+                            <label for="food_allergies_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="food_allergies_details">אם כן, לאילו מזונות, מי המליץ להמנע מהם, מה הייתה התגובה בעת החשיפה?</label><br>
+                            <textarea name="food_allergies_details" id="food_allergies_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+<!--  -->
+
+                        </div>
+                        <div class="tab">
+                            <h3>הרגלים ותרופות</h3>
+                            <div class="emphasize-text-1">האם הומלץ לך על נשיאת מזרק אנדרנלין אוטומטי (אפיפן) באופן קבוע?</div>
+                            <input type="radio" id="epipen_yes" name="epipen" value="TRUE">
+                            <label for="epipen_yes">כן</label><br>
+                            <input type="radio" id="epipen_no" name="epipen" value="FALSE" checked="checked">
+                            <label for="epipen_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <div class="emphasize-text-1">האם הומלץ לך על נשיאת משאף ונטולין באופן קבוע?</div>
+                            <input type="radio" id="ventolin_yes" name="ventolin" value="TRUE">
+                            <label for="ventolin_yes">כן</label><br>
+                            <input type="radio" id="ventolin_no" name="ventolin" value="FALSE" checked="checked">
+                            <label for="ventolin_no">לא</label><br>
+                            <div class="form-seperator"></div>                       
+<!--  -->
+
+
+                            <div class="emphasize-text-1">במידה והומלץ לך על אפיפן / ונטולין / אחר - האם חסר לך מזרק או משאף כעת?</div>
+                            <input type="radio" id="is_ventolin_epipen_missing_yes" name="is_ventolin_epipen_missing" value="TRUE" onclick="disableEnableInput(['missing_ventolin_epipen_type'], 'enable')">
+                            <label for="is_ventolin_epipen_missing_yes">כן</label><br>
+                            <input type="radio" id="is_ventolin_epipen_missing_no" name="is_ventolin_epipen_missing" value="FALSE" checked="checked" onclick="disableEnableInput(['missing_ventolin_epipen_type'], 'disable')">
+                            <label for="is_ventolin_epipen_missing_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div class="emphasize-text-1">אם כן, סמן</div>
+                            <input type="radio" id="missing-ventolin-epipen-type-epipen-missing" name="missing_ventolin_epipen_type" value="epipen" disabled="disabled">
+                            <label for="missing-ventolin-epipen-type-epipen-missing">אפיפן (מזרק למקרים של תגובה אלרגית)</label><br>
+                            <input type="radio" id="missing-ventolin-epipen-type-ventolin-missing" name="missing_ventolin_epipen_type" value="ventolin" checked="checked" disabled="disabled">
+                            <label for="missing-ventolin-epipen-type-ventolin-missing">וונטולין (משאף)</label><br>
+                            <input type="radio" id="missing-ventolin-epipen-type-missing-other-type" name="missing_ventolin_epipen_type" value="other inhaler" checked="checked" disabled="disabled">
+                            <label for="missing-ventolin-epipen-type-missing-other-type">אחר: </label>
+                            <input type="text" id="other-inhaler-type-input-box">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​<br>
+                            <input type="radio" id="missing-ventolin-epipen-type-irrelevant" name="missing_ventolin_epipen_type" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="missing-ventolin-epipen-type-ventolin-missing">לא רלוונטי</label><br>
+                            <div class="form-seperator"></div>
+                        </div>
+                        <div class="tab">
+                            <h3>הרגלים ותרופות</h3>
+
+                            <!--  -->
+                            <div class="emphasize-text-1">האם אתה סובל מאפליפסיה?</div>
+                            <input type="radio" id="epilepsy_yes" name="epilepsy" value="TRUE" onclick="disableEnableInput(['epilepsy_is_medically_treated', 'epilepsy_last_seizure_date', 'epilepsy_details'], 'enable')">
+                            <label for="epilepsy_yes">כן</label><br>
+                            <input type="radio" id="epilepsy_no" name="epilepsy" value="FALSE" checked="checked" onclick="disableEnableInput(['epilepsy_is_medically_treated', 'epilepsy_last_seizure_date', 'epilepsy_details'], 'disable')">
+                            <label for="epilepsy_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div class="emphasize-text-1">האם מטופל תרופתית?</div>
+                            <input type="radio" id="epilepsy_is_medically_treated_yes" name="epilepsy_is_medically_treated" value="TRUE" disabled="disabled">
+                            <label for="epilepsy_is_medically_treated_yes">כן</label><br>
+                            <input type="radio" id="epilepsy_is_medically_treated_no" name="epilepsy_is_medically_treated" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="epilepsy_is_medically_treated_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label class="emphasize-text-1" for="epilepsy_last_seizure_date">תאריך פרכוס אחרון: </label>
+                            <input type="date" id="epilepsy_last_seizure_date" name="epilepsy_last_seizure_date" disabled="disabled"><br>
+
+
+                            <label class="emphasize-text-1" for="epilepsy_details" class="emphasize-text-1">אפילפסיה - פרט לפי הצורך</label><br>
+                            <textarea name="epilepsy_details" id="epilepsy_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+                            <!--  -->
+
+                            <div class="emphasize-text-1">האם אתה נוטל באופן קבוע טיפול תרופתי לאפילפסיה או פרכוסים? האם חסר לך הטיפול התרופתי כעת?</div>
+                            <input type="radio" id="epilepsy_is_medically_treated_and_missing_yes" name="epilepsy_is_medically_treated_and_missing" value="TRUE" onclick="disableEnableInput(['epilepsy_is_medically_treated_and_missing_details'], 'enable')">
+                            <label for="epilepsy_is_medically_treated_and_missing_yes">כן</label><br>
+                            <input type="radio" id="epilepsy_is_medically_treated_and_missing_no" name="epilepsy_is_medically_treated_and_missing" value="FALSE" checked="checked" onclick="disableEnableInput(['epilepsy_is_medically_treated_and_missing_details'], 'disable')">
+                            <label for="epilepsy_is_medically_treated_and_missing_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <label class="emphasize-text-1" for="epilepsy_is_medically_treated_and_missing_details">פרט</label><br>
+                            <textarea name="epilepsy_is_medically_treated_and_missing_details" id="epilepsy_is_medically_treated_and_missing_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+                            <div class="form-seperator"></div>
+<!--  -->
+                            <div>האם מישהו מבני משפחתך נפטר ממחלה כלשהי לפני גיל 50?</div>
+                            <input type="radio" id="relative_death_before_50_yes" name="relative_death_before_50" value="TRUE" onclick="disableEnableInput(['relative_death_before_50_details'], 'enable')">
+                            <label for="relative_death_before_50_yes">כן</label><br>
+                            <input type="radio" id="relative_death_before_50_no" name="relative_death_before_50" value="FALSE" checked="checked" onclick="disableEnableInput(['relative_death_before_50_details'], 'disable')">
+                            <label for="relative_death_before_50_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="relative_death_before_50_details">פרט - התייחס לדרגת קרבה, איזו מחלה, גיל פטירה, האם תורשתי, האם מדובר בסיבה לבבית</label><br>
+                            <textarea name="relative_death_before_50_details" id="relative_death_before_50_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+
+<!--  -->
+
+                        </div>
+                        <div class="tab">
+                            <h3>מחלות במשפחה</h3>
+
+                            <div>האם היו מקרים של מחלת הסרטן במשפחתך בגיל צעיר?</div>
+                            <input type="radio" id="cancer_in_family_yes" name="cancer_in_family" value="TRUE" onclick="disableEnableInput(['cancer_in_family_details'], 'enable')">
+                            <label for="cancer_in_family_yes">כן</label><br>
+                            <input type="radio" id="cancer_in_family_no" name="cancer_in_family" value="FALSE" checked="checked" onclick="disableEnableInput(['cancer_in_family_details'], 'disable')">
+                            <label for="cancer_in_family_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="cancer_in_family_details">פרט (דרגת קרבה, סוג הסרטן, גיל פטירה)</label><br>
+                            <textarea name="cancer_in_family_details" id="cancer_in_family_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+<!--  -->
+
+                            <div>האם סבלת בשבוע האחרון ממחלת חום?</div>
+                            <input type="radio" id="last_week_fever_yes" name="last_week_fever" value="TRUE" onclick="disableEnableInput(['last_week_fever_healed'], 'enable')">
+                            <label for="last_week_fever_yes">כן</label><br>
+                            <input type="radio" id="last_week_fever_no" name="last_week_fever" value="FALSE" checked="checked" onclick="disableEnableInput(['last_week_fever_healed'], 'disable')">
+                            <label for="last_week_fever_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם המחלה חלפה?</div>
+                            <input type="radio" id="last_week_fever_healed_yes" name="last_week_fever_healed" value="TRUE" disabled="disabled">
+                            <label for="last_week_fever_healed_yes">כן</label><br>
+                            <input type="radio" id="last_week_fever_healed_no" name="last_week_fever_healed" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="last_week_fever_healed_no">לא</label><br>
+                            <div class="form-seperator"></div>
+<!--  -->
+
+                            <div>האם סבלת בשבוע האחרון משלשול, הקאה או כאב בטן?</div>
+                            <input type="radio" id="last_week_diarrhea_vomit_stomachache_yes" name="last_week_diarrhea_vomit_stomachache" value="TRUE" onclick="disableEnableInput(['last_week_diarrhea_vomit_stomachache_healed'], 'enable')">
+                            <label for="last_week_diarrhea_vomit_stomachache_yes">כן</label><br>
+                            <input type="radio" id="last_week_diarrhea_vomit_stomachache_no" name="last_week_diarrhea_vomit_stomachache" value="FALSE" checked="checked" onclick="disableEnableInput(['last_week_diarrhea_vomit_stomachache_healed'], 'disable')">
+                            <label for="last_week_diarrhea_vomit_stomachache_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+
+                            <div>האם המחלה חלפה?</div>
+                            <input type="radio" id="last_week_diarrhea_vomit_stomachache_healed_yes" name="last_week_diarrhea_vomit_stomachache_healed" value="TRUE" disabled="disabled">
+                            <label for="last_week_diarrhea_vomit_stomachache_healed_yes">כן</label><br>
+                            <input type="radio" id="last_week_diarrhea_vomit_stomachache_healed_no" name="last_week_diarrhea_vomit_stomachache_healed" value="FALSE" checked="checked" disabled="disabled">
+                            <label for="last_week_diarrhea_vomit_stomachache_healed_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+<!--  -->
+
+
+                            <div>האם אתה נוטל כעת טיפול תרופתי כלשהו? (אנטיביוטיקה, משאף וכו')</div>
+                            <input type="radio" id="currently_using_drugs_yes" name="currently_using_drugs" value="TRUE" onclick="disableEnableInput(['currently_using_drugs_details'], 'enable')">
+                            <label for="currently_using_drugs_yes">כן</label><br>
+                            <input type="radio" id="currently_using_drugs_no" name="currently_using_drugs" value="FALSE" checked="checked" onclick="disableEnableInput(['currently_using_drugs_details'], 'disable')">
+                            <label for="currently_using_drugs_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <label for="currently_using_drugs_details">איזה טיפול ומדוע</label><br>
+                            <textarea name="currently_using_drugs_details" id="currently_using_drugs_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+<!--  -->
+
+                            <div>האם אתה במעקב או בירור בעיה רפואית כלשהי?*</div>
+                            <input type="radio" id="currently_under_supervision_yes" name="currently_under_supervision" value="TRUE" onclick="disableEnableInput(['currently_under_supervision_details'], 'enable')">
+                            <label for="currently_under_supervision_yes">כן</label><br>
+                            <input type="radio" id="currently_under_supervision_no" name="currently_under_supervision" value="FALSE" checked="checked" onclick="disableEnableInput(['currently_under_supervision_details'], 'disable')">
+                            <label for="currently_under_supervision_no">לא</label><br>
+                            <div class="form-seperator"></div>
+
+                            <p class="side-note">*במידה וסימנת כן ובמידה ולא דווח בצו ראשון - תזומן בהקדם לבדיקה. יש לוודא כי יש בידיך את הבירור (על דפים או בטלפון) להציג כבר המפגש הראשון.<br></p>
+
+                            <label for="currently_under_supervision_details">פרט ככל הניתן מה הבעיה והאם הומלץ על המשך בירור</label><br>
+                            <textarea name="currently_under_supervision_details" id="currently_under_supervision_details" style="width: 100%" rows="5" disabled="disabled"></textarea>
+
+                        </div>
+                        <div class="tab">
+                            <h3>הצהרת החייל</h3>
+                            <ul class="affidavit-list">
+                                <li>הנני מצהיר כי הפרטים שמסרתי נכונים ושלא העלמתי מידע רפואי.</li>
+                                <li>ידוע לי כי הצהרה לא נכונה עלולה לגרום נזק לבריאותי.</li>
+                                <li>ידוע לי כי הצהרה לא נכונה עלולה לגרום להעמדתי לדין, וכי המידע שמסרתי עלול להוות ראיה נגדי לצורך כך.</li>
+                                <li>ידוע לי כי בכל בעיה רפואית שתתעורר, אני רשאי לבקש בדיקת רופא אשר תיערך תוך 24 שעות מדרישתי או במועד אחר אשר יקבע על ידי הרופא.</li>
+                            </ul>
+                        </div>
+                        <input type="hidden" id="t" name="t" value="akasjdhkah">
+                        <div class="form-buttons">
+                            <button type="button" id="prevBtn" class="btn-style-1" onclick="nextPrev(-1)" style="margin-left: 10px">הקודם</button>
+                            <button type="button" id="nextBtn" class="btn-style-1" onclick="nextPrev(1)">הבא</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="placeholder col-0 col-sm-0 col-xl-1"></div>             
+                <div class="kamanim-img col-xl-7"></div>             
+            </div>
+        </div>
+
+        <footer class="">
+        </footer>
+    </body>
+</html>
