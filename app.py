@@ -36,6 +36,7 @@ def handle_form():
     form_values = request.form # {input name: value, ...}
     # parse
     row_input = {k: helper_functions.string_converter(v) for k, v in form_values.items() if k != 't'}
+    print(form_values)
     # get table name from form
     table = constants.fe_to_be_tbl_identifier[form_values['t']]
     # insert to db

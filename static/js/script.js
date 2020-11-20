@@ -102,10 +102,10 @@ function handleRadioButtonInputBoxCorrelation(radioId, inputId) {
   }
 
   // handle user input
-  inputElement.onkeypress = () => {
+  inputElement.addEventListener("keyup", () => {
     radioElement.checked = true;
     radioElement.value = inputElement.value;
-  }
+  });
 
   // handle radio toggling
   let radioElementBrothers = document.getElementsByName(radioElement.name); // including our radioElement itself
@@ -146,6 +146,7 @@ let hasUserSubmitted = false;
 let currentTab = 0; // Current tab is set to be the first tab (0)
 window.addEventListener('load', () => {
 showTab(currentTab);
+handleRadioButtonInputBoxCorrelation("bhd-1-kosher-other", "bhd-1-kosher-other-input-box");
 handleRadioButtonInputBoxCorrelation("missing-ventolin-epipen-type-missing-other-type", "other-inhaler-type-input-box");
 });
 

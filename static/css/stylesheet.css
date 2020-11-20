@@ -122,6 +122,10 @@ header hr {
 	padding-bottom: 5px;
 }
 
+.radio-question-div {
+	padding-bottom: 13px;
+}
+
 .form-seperator {
 	padding-top: 16px;
 }
@@ -138,6 +142,7 @@ header hr {
 .affidavit-list {
 	padding-right: 10px;
 }
+
 li {
 	padding-top: 10px;
 }
